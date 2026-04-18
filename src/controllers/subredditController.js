@@ -72,7 +72,7 @@ export const getSubredditWithThreads = async (req, res) => {
       success: true,
       data: subreddit,
       message: "Subreddit with threads fetched successfully"
-    });
+    }); 
   }
   catch (error) {
     const output = { success: false, message: "Error fetching subreddit with threads" }
