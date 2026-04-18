@@ -1,0 +1,172 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6",
+		"name": "ThreadHive Threads API",
+		"description": "Collection for testing Thread endpoints in the ThreadHive application.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Threads",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/threads",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"threads"
+					]
+				},
+				"description": "Retrieves all threads with populated author and subreddit information."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Thread By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/threads/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"threads",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "65f1a2b3c4d5e6f7a8b9c0d1",
+							"description": "The unique identifier of the thread"
+						}
+					]
+				},
+				"description": "Retrieves a single thread by its ID."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Thread",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"How to learn Node.js in 2024\",\n    \"content\": \"I'm looking for the best resources to master Node.js this year. Any recommendations?\",\n    \"author\": \"65f1a2b3c4d5e6f7a8b9c0d2\",\n    \"subreddit\": \"65f1a2b3c4d5e6f7a8b9c0d3\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/threads",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"threads"
+					]
+				},
+				"description": "Creates a new thread in a specific subreddit."
+			},
+			"response": []
+		},
+		{
+			"name": "Update Thread",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Updated: Best Node.js Resources 2024\",\n    \"content\": \"I found some great courses on Coursera and Udemy. What do you think about them?\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/threads/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"threads",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "65f1a2b3c4d5e6f7a8b9c0d1"
+						}
+					]
+				},
+				"description": "Updates the title and content of an existing thread."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Thread",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/threads/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"threads",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "65f1a2b3c4d5e6f7a8b9c0d1"
+						}
+					]
+				},
+				"description": "Permanently deletes a thread from the database."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000/api",
+			"type": "string"
+		}
+	]
+}
