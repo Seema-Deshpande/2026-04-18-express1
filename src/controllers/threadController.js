@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import * as threadService from '../services/threadService.js';
 
 export const getAllThreads = async (req, res) => {
@@ -19,6 +20,14 @@ export const getAllThreads = async (req, res) => {
 export const getThreadById = async (req, res) => {
   try {
     const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid thread ID format'
+      });
+    }
+
     const thread = await threadService.getThreadById(id);
     
     if (!thread) {
@@ -36,7 +45,7 @@ export const getThreadById = async (req, res) => {
     console.error(`Error fetching thread ${req.params.id}:`, error);
     res.status(500).json({
       success: false,
-      message: error.message || 'Failed to fetch thread'
+      message: 'An error occurred while fetching the thread'
     });
   }
 };
@@ -49,6 +58,13 @@ export const createThread = async (req, res) => {
       return res.status(400).json({
         success: false,
         message: 'Missing required fields: title, content, author, and subreddit are required'
+      });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(author) || !mongoose.Types.ObjectId.isValid(subreddit)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid author or subreddit ID format'
       });
     }
 
@@ -70,7 +86,7 @@ export const createThread = async (req, res) => {
     console.error('Error creating thread:', error);
     res.status(500).json({
       success: false,
-      message: error.message || 'Failed to create thread'
+      message: 'An error occurred while creating the thread'
     });
   }
 };
@@ -79,6 +95,13 @@ export const updateThread = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, content } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid thread ID format'
+      });
+    }
 
     const updatedThread = await threadService.updateThread(id, { title, content });
 
@@ -98,7 +121,7 @@ export const updateThread = async (req, res) => {
     console.error(`Error updating thread ${req.params.id}:`, error);
     res.status(500).json({
       success: false,
-      message: error.message || 'Failed to update thread'
+      message: 'An error occurred while updating the thread'
     });
   }
 };
@@ -106,6 +129,14 @@ export const updateThread = async (req, res) => {
 export const deleteThread = async (req, res) => {
   try {
     const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid thread ID format'
+      });
+    }
+
     const deletedThread = await threadService.deleteThread(id);
 
     if (!deletedThread) {
@@ -123,7 +154,7 @@ export const deleteThread = async (req, res) => {
     console.error(`Error deleting thread ${req.params.id}:`, error);
     res.status(500).json({
       success: false,
-      message: error.message || 'Failed to delete thread'
+      message: 'An error occurred while deleting the thread'
     });
   }
 };

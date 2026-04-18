@@ -2,9 +2,9 @@
   "name": "threadhive-backend",
   "version": "1.0.0",
   "scripts": {
-    "start": "node main.js",
+    "start": "node init && node main.js",
     "populate": "node src/scripts/populate_db.js",
-    "dev": "nodemon main.js"
+    "dev": "node init && nodemon main.js"
   },
   "type": "module",
   "keywords": [],
